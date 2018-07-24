@@ -161,7 +161,7 @@ void FoxLCD::setcursor(uint8_t x, uint8_t y) {
 			sendcmd(x | 0x80);
 			break;
 		case 1:
-			sendcmd(0xC0);
+			sendcmd((0x40 + x) | 0x80);
 			break;
 		case 2:
 			sendcmd((0x14 + x) | 0x80);
