@@ -80,8 +80,12 @@ void FoxLCD::init(void) {
 	sendcmd(0x00); //0b00000000
 	sendcmd(0x60); //0b01100000
 	delay_ms(1); //Ожидание выполнения команды
-	//Перемещение каретки в исходное состояние
 	home();
+	delay_ms(2);
+	sendcmd(0x0C);
+	delay_ms(1);
+	clear();
+	delay_ms(2);
 }
 
 //Функция отправки команды в дисплей (RS подключен к нулю)
@@ -120,7 +124,211 @@ void FoxLCD::print(char msg[]) {
 	char i = 0;
 	while(*msg) {
 		i = *msg++;
-		printchar(i);
+		//Поддержка русских символов "на лету" (только для дисплеев с кириллицей в знакогенераторе)
+		switch(i) {
+			case 'А':
+				printchar('A');
+			  break;
+			case 'а':
+				printchar('a');
+			  break;
+			case 'Б':
+				printchar(0xA0);
+			  break;
+			case 'б':
+				printchar(0xB2);
+			  break;
+			case 'В':
+				printchar('B');
+			  break;
+			case 'в':
+				printchar(0xB3);
+			  break;
+			case 'Г':
+				printchar(0xA1);
+			  break;
+			case 'г':
+				printchar(0xB4);
+			  break;
+			case 'Д':
+				printchar(0xE0);
+			  break;
+			case 'д':
+				printchar(0xE3);
+			  break;
+			case 'Е':
+				printchar('E');
+			  break;
+			case 'е':
+				printchar('e');
+			  break;
+			case 'Ё':
+				printchar(0xA2);
+			  break;
+			case 'ё':
+				printchar(0xB5);
+			  break;
+			case 'Ж':
+				printchar(0xA3);
+			  break;
+			case 'ж':
+				printchar(0xB6);
+			  break;
+			case 'З':
+				printchar(0xA4);
+			  break;
+			case 'з':
+				printchar(0xB7);
+			  break;
+			case 'И':
+				printchar(0xA5);
+			  break;
+			case 'и':
+				printchar(0xB8);
+			  break;
+			case 'Й':
+				printchar(0xA6);
+			  break;
+			case 'й':
+				printchar(0xB9);
+			  break;
+			case 'К':
+				printchar('K');
+			  break;
+			case 'к':
+				printchar(0xBA);
+			  break;
+			case 'Л':
+				printchar(0xA7);
+			  break;
+			case 'л':
+				printchar(0xBB);
+			  break;
+			case 'М':
+				printchar('M');
+			  break;
+			case 'м':
+				printchar(0xBC);
+			  break;
+			case 'Н':
+				printchar('H');
+			  break;
+			case 'н':
+				printchar(0xBD);
+			  break;
+			case 'О':
+				printchar('O');
+			  break;
+			case 'о':
+				printchar('o');
+			  break;
+			case 'П':
+				printchar(0xA8);
+			  break;
+			case 'п':
+				printchar(0xBE);
+			  break;
+			case 'Р':
+				printchar('P');
+			  break;
+			case 'р':
+				printchar('p');
+			  break;
+			case 'С':
+				printchar('C');
+			  break;
+			case 'с':
+				printchar('c');
+			  break;
+			case 'Т':
+				printchar('T');
+			  break;
+			case 'т':
+				printchar(0xBF);
+			  break;
+			case 'У':
+				printchar(0xA9);
+			  break;
+			case 'у':
+				printchar('y');
+			  break;
+			case 'Ф':
+				printchar(0xAA);
+			  break;
+			case 'ф':
+				printchar(0xE4);
+			  break;
+			case 'Х':
+				printchar('X');
+			  break;
+			case 'х':
+				printchar('x');
+			  break;
+			case 'Ц':
+				printchar(0xE1);
+			  break;
+			case 'ц':
+				printchar(0xE5);
+			  break;
+			case 'Ч':
+				printchar(0xAB);
+			  break;
+			case 'ч':
+				printchar(0xC0);
+			  break;
+			case 'Ш':
+				printchar(0xAC);
+			  break;
+			case 'ш':
+				printchar(0xC1);
+			  break;
+			case 'Щ':
+				printchar(0xE2);
+			  break;
+			case 'щ':
+				printchar(0xE6);
+			  break;
+			case 'Ъ':
+				printchar(0xAD);
+			  break;
+			case 'ъ':
+				printchar(0xC2);
+			  break;
+			case 'Ы':
+				printchar(0xAE);
+			  break;
+			case 'ы':
+				printchar(0xC3);
+			  break;
+			case 'Ь':
+				printchar('b');
+			  break;
+			case 'ь':
+				printchar(0xC4);
+			  break;
+			case 'Э':
+				printchar(0xAF);
+			  break;
+			case 'э':
+				printchar(0xC5);
+			  break;
+			case 'Ю':
+				printchar(0xB0);
+			  break;
+			case 'ю':
+				printchar(0xC6);
+			  break;
+			case 'Я':
+				printchar(0xB1);
+			  break;
+			case 'я':
+				printchar(0xC7);
+			  break;
+			default:
+				printchar(i);
+				break;
+		}
+		delay_ms(1);
 	}
 }
 //Функция очистки дисплея
