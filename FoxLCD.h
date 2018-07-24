@@ -5,6 +5,18 @@
 
 #ifndef __FOXLCD_H__
 #define __FOXLCD_H__
+
+#define CHAR_10 			0x7B
+#define CHAR_12 			0x7C
+#define CHAR_15 			0x7D
+#define CHAR_ENTER		0x7E
+#define CHAR_UP				0xD9
+#define CHAR_DOWN			0xDA
+#define CHAR_BELL			0xED
+#define CHAR_1DEVIDE4	0xF0
+#define CHAR_1DEVIDE3	0xF1
+#define CHAR_1DEVIDE2	0xF2
+
 class FoxLCD { //Инициализация класса FoxLCD
 	public:
 		FoxLCD(GPIO_TypeDef *GPIOx, uint32_t GPIOxEN, uint8_t RS, uint8_t E, uint8_t DB4, uint8_t DB5, uint8_t DB6, uint8_t DB7);
