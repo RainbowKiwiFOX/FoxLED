@@ -34,6 +34,8 @@ class FoxLCD { //Инициализация класса FoxLCD
 		void cursor(uint8_t state);						//Функция включения/отключения отображения курсора
 		void blink(uint8_t state);						//Функция включения/отключения моргания курсора
     void setcursor(uint8_t x, uint8_t y);	//Функция перемещения курсора по осям X и Y
+		void chartocgram(uint8_t number, uint8_t chararray[8]); //Функция генерации собственного символа в CGRAM. Можно положить символы под номерами от 0 до 7
+		void printfromcgram(uint8_t number); 	//Функция печати собственного символа из CGRAM. Можно печатать символы под номерами от 0 до 7
 		
 		void delay_ms(uint16_t millis); 			//Функция задержки в миллисекундах
 };
@@ -381,6 +383,17 @@ void FoxLCD::setcursor(uint8_t x, uint8_t y) {
 	delay_ms(1);
 }
 
+//Функция генерации собственного символа в CGRAM
+void FoxLCD::chartocgram(uint8_t number, uint8_t chararray[8]) {
+	sendcmd(0x40 + number*8);
+	for (uint8_t i = 0; i < 8; i++) {
+		senddata(chararray[i]);
+	}
+}
+//Функция печати собственного символа из CGRAM. Можно печатать символы под номерами от 0 до 7
+void FoxLCD::printfromcgram(uint8_t number) {
+	printchar(number*8);
+}
 //Функция стробирования пина E
 void FoxLCD::strob(void) {
 	WRITE_HIGH(GPIOx -> ODR, E); //Подъём уровня на пине E
